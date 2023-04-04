@@ -6,44 +6,27 @@ using System.Threading.Tasks;
 
 namespace ProcessBusinessLogic
 {
-    //public delegate void BusinessLogicDelegate();
-      class ProcessBusinessLogic
+
+    class ProcessBusinessLogic
     {
-       // public event BusinessLogicDelegate ProcessCompleted;
-       public event EventHandler <bool> ProcessCompleted;
-        public   void StartProcess()
-
-        {   
-
+        public event EventHandler<bool> ProcessCompleted;
+        public void StartProcess()
+        {
             Console.WriteLine("Process Started!");
-
-            
-
-             OnProcessCompleted(true);
-
+            OnProcessCompleted(true);
         }
-
-        public void bl_ProcessCompleted(object sender , bool IsCompleted )
+        public void bl_ProcessCompleted(object sender, bool IsCompleted)
         {
-            Console.WriteLine("Method Invoked !! Process :" +( IsCompleted?   " Completed " : "Not Completed"));
+            Console.WriteLine("Method Invoked !! Process :" + (IsCompleted ? " Completed " : "Not Completed"));
         }
-        protected virtual void OnProcessCompleted(bool IsSuccess) //protected virtual method
-
+        protected virtual void OnProcessCompleted(bool IsSuccess)
         {
-
-            //if ProcessCompleted is not null then call delegate
-
-            ProcessCompleted?.Invoke(this,IsSuccess);
-
+            ProcessCompleted?.Invoke(this, IsSuccess);
         }
 
         public static void Main(string[] args)
         {
             ProcessBusinessLogic processBusinessLogic = new ProcessBusinessLogic();
-            //BusinessLogicDelegate businessLogicDelegate = new BusinessLogicDelegate(processBusinessLogic.StartProcess);
-            //businessLogicDelegate();
-            //processBusinessLogic.ProcessCompleted += processBusinessLogic.bl_ProcessCompleted;
-            //processBusinessLogic.OnProcessCompleted();
             processBusinessLogic.ProcessCompleted += processBusinessLogic.bl_ProcessCompleted;
             processBusinessLogic.StartProcess();
         }
